@@ -97,6 +97,28 @@ add_task(
 )
 
 add_task(
+    id='BanditTenArmedGaussian_nonstationary-v0',
+    group='bandits',
+    experimental=True,
+    contributor='0D0AResearch',
+    summary="non-stationary 10 armed bandit with reward based on a Gaussian distribution",
+    description="""
+    Each bandit takes in a probability distribution, which is the likelihood of the action paying out,
+    and a reward distribution, which is the value or distribution of what the agent will be rewarded if
+    the bandit does payout.
+
+    p_dist = [1] (* 10)
+    r_dist = [0 (* 10)
+
+    Every bandit always pays out
+    Each action starts with a true value of zero. Every step the true values independently vary
+    by a normally distributed increment mean 0 and stdev 0.01. The actual
+    reward returned is selected with a std of 1 around the true value
+    """,
+    background="Described on page 33 of Sutton and Barto's [Reinforcement Learning: An Introduction](https://www.dropbox.com/s/b3psxv2r0ccmf80/book2015oct.pdf?dl=0)"
+)
+
+add_task(
     id='BanditTenArmedRandomRandom-v0',
     group='bandits',
     experimental=True,
