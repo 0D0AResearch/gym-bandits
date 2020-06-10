@@ -125,3 +125,39 @@ class BanditTenArmedGaussian(BanditEnv):
             r_dist.append([np.random.normal(0, 1), 1])
 
         BanditEnv.__init__(self, p_dist=p_dist, r_dist=r_dist)
+
+class BanditTenArmedGaussian_nonstationary(BanditEnv):
+    """
+    10 armed bandit mentioned on page 33 of Sutton and Barto's
+    [Reinforcement Learning: An Introduction](https://www.dropbox.com/s/b3psxv2r0ccmf80/book2015oct.pdf?dl=0)
+
+    Actions always pay out
+    All q*(a) start out equal then each step they independently vary
+    (random walk) by a normally distributed increment w/ mean 0 and
+    stdev 0.01.
+    """
+    def __init__(self, bandits=10):
+        p_dist = np.full(bandits, 1)
+        r_dist = []
+
+        for _ in range(bandits):
+            r_dist.append(0)
+
+        BanditEnv.__init__(self, p_dist=p_dist, r_dist=r_dist)
+
+    def step(self, action):
+        assert self.action_space.contains(action)
+
+        # Each step, each q*(a) will take a random walk
+        self.r_dist = [self.r_dist[i] + np.random.normal(0,0.01) for i,_ in enumerate(self.r_dist)]
+
+        reward = 0
+        done = True
+
+        if np.random.uniform() < self.p_dist[action]:
+            if not isinstance(self.r_dist[action], list):
+                reward = self.r_dist[action]
+            else:
+                reward = np.random.normal(self.r_dist[action][0], self.r_dist[action][1])
+
+        return 0, reward, done, {}
