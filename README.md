@@ -23,6 +23,7 @@ your weights against the true values for plotting results of various algorithms
 * `BanditTenArmedRandomRandom-v0`: 10 armed bandit with random probabilities assigned to both payouts and rewards
 * `BanditTenArmedUniformDistributedReward-v0`: 10 armed bandit with that always pays out with a reward selected from a uniform distribution
 * `BanditTenArmedGaussian-v0`: 10 armed bandit mentioned on page 30 of [Reinforcement Learning: An Introduction](https://www.dropbox.com/s/b3psxv2r0ccmf80/book2015oct.pdf?dl=0) (Sutton and Barto)
+* `BanditTenArmedGaussian_nonstationary-v0`: A non-stationary bandit problem, where each action starts with a true value of zero, every step the true values independently vary by a normally distributed increment mean 0 and stdev 0.01.
 
 ### Installation
 ```bash
